@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Inventory Management</h1>
+
+    <form action="{{ url_for('add_item') }}" method="POST">
+        <input type="text" name="name" placeholder="Product Name" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <h2>Inventory List</h2>
+    <ul>
+        {% for item in inventory %}
+            <li>
+                {{ item.name }} - {{ item.quantity }}kg - ₹{{ item.price }}
+                <a href="{{ url_for('delete_item', item_id=item.id) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
